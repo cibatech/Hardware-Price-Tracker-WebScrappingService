@@ -1,0 +1,21 @@
+{
+  "name": "hardware-price-tracker---scrapper",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@types/node": "^22.9.0",
+    "fastify": "^5.1.0",
+    "prisma": "^5.22.0",
+    "puppeteer": "^23.7.1",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3"
+  },
+  "type": "module"
+}
