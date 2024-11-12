@@ -5,6 +5,6 @@ export class PichauGeneralScrappingUseCase {
     constructor(){}
     async execute(){
         
-
+        
     }
 }
