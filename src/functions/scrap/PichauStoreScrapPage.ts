@@ -1,7 +1,7 @@
 import puppeteer from "puppeteer";
-import { PichauLinkCollection } from "../collections/pichauLinkCollection";
+import { PichauLinkCollection } from "../../collections/pichauLinkCollection";
 import { randomUUID } from "crypto";
-import { TransferDataObjectFromDOM } from "../collections/domRecieverInterface";
+import { TransferDataObjectFromDOM } from "../../collections/domRecieverInterface";
 
 export async function PichauScrapStore(CoreUrl:string) {
     const browser = await puppeteer.launch({ headless: false });
@@ -35,7 +35,7 @@ export async function PichauScrapStore(CoreUrl:string) {
                     Where:window.location.href,
                     description:h2Reference?h2Reference.innerHTML:null,
                     image:imgReference?imgReference.src:null,
-                    Price:SpanForprice?SpanForprice.innerHTML.replace("R$&nbsp;",""):null
+                    Price:SpanForprice?Number(SpanForprice.innerHTML.replace("R$&nbsp;","")):null
                 }
                 prepList.push(prepCon)
             }

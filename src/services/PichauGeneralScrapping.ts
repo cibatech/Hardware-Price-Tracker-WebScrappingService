@@ -17,6 +17,7 @@ export class PichauGeneralScrappingUseCase {
         await page.waitForNetworkIdle({timeout:40000})
     
         const Ps = await page.evaluate(()=>{
+            //Encontra elementos específicos 
             const DOMList = document.querySelector(".MuiGrid-root.MuiGrid-container.MuiGrid-spacing-xs-3") as HTMLDivElement
             const iDivList = DOMList.querySelectorAll(".MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-6.MuiGrid-grid-sm-6.MuiGrid-grid-md-4.MuiGrid-grid-lg-3.MuiGrid-grid-xl-2") as NodeListOf<HTMLDivElement>
     
@@ -37,7 +38,7 @@ export class PichauGeneralScrappingUseCase {
                         Where:window.location.href,
                         description:h2Reference?h2Reference.innerHTML:null,
                         image:imgReference?imgReference.src:null,
-                        Price:SpanForprice?SpanForprice.innerHTML.replace("R$&nbsp;","").replace(/[^0-9]/g, ''):null
+                        Price:SpanForprice?Number(SpanForprice.innerHTML.replace("R$&nbsp;","").replace(/[^0-9]/g, '')):null
                     }
                     prepList.push(prepCon)
                 }
