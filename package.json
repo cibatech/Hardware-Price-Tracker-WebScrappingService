@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "db:indev":"npx prisma generate --schema=prisma/indev.prisma",
-    "db:deploy":"npx prisma generate --schema=prisma/deploy.prisma"
+    "db:indev":"npx prisma migrate dev --schema=prisma/index.prisma",
+    "db:deploy":"npx prisma generate --schema=prisma/deploy.prisma",
+    "test":"npx vitest --run"
   },
   "keywords": [],
   "author": "",
