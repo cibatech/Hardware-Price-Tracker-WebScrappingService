@@ -1,5 +1,5 @@
 import puppeteer from "puppeteer"
-import { PichauLinkCollection } from "../../collections/pichauLinkCollection";
+import { PichauLinkCollection } from "../../../collections/StandardLinkCollection";
 import { waitForDebugger } from "inspector";
 
 interface linkList{

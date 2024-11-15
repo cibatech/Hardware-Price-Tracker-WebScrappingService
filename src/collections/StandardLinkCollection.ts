@@ -5,3 +5,9 @@ export const PichauLinkCollection = {
         "https://www.pichau.com.br/perifericos",
     ]
 }
+export const KabumLinkCollection = {
+    coreSite:"https://www.kabum.com.br",
+    subSitesList:[
+        "https://www.kabum.com.br/hardware"
+    ]
+}

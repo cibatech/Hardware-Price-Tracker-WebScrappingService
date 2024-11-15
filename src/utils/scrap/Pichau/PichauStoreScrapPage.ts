@@ -1,7 +1,7 @@
 import puppeteer from "puppeteer";
-import { PichauLinkCollection } from "../../collections/pichauLinkCollection";
+import { PichauLinkCollection } from "../../../collections/StandardLinkCollection";
 import { randomUUID } from "crypto";
-import { TransferDataObjectFromDOM } from "../../collections/domRecieverInterface";
+import { TransferDataObjectFromDOM } from "../../../collections/domRecieverInterface";
 
 export async function PichauScrapStore(CoreUrl:string) {
     const browser = await puppeteer.launch({ headless: false });
@@ -9,10 +9,10 @@ export async function PichauScrapStore(CoreUrl:string) {
     await page.setViewport({ width: 1080, height: 1024 });
 
     const searchList = CoreUrl;
-    const PoquireReturnList:TransferDataObjectFromDOM[] = [];
 
     await page.goto(searchList[0], { waitUntil: "networkidle2",timeout:60000 });
     
+    //Aguarda o carregamento da pagina
     await page.waitForNetworkIdle({timeout:40000})
 
     const Ps = await page.evaluate(()=>{
