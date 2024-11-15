@@ -5,7 +5,7 @@ import { TransferDataObjectFromDOM } from "../collections/domRecieverInterface";
 export class PichauGeneralScrappingUseCase {
     constructor(){}
     async execute(CoreUrl:string){
-        const browser = await puppeteer.launch({ headless: false });
+        const browser = await puppeteer.launch({ headless: true });
         const page = await browser.newPage();
         await page.setViewport({ width: 1080, height: 1024 });
     
