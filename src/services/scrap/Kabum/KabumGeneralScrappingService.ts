@@ -3,6 +3,7 @@ import { TransferDataObjectFromDOM } from "../../../collections/domRecieverInter
 import { Product } from "../../../../prisma/deploy-output";
 import { ProductRepository } from "../../../repositories/Product.repository,";
 import { sluggen } from "../../../utils/sluggen";
+import { WS_API_DEFAULT_PAGE_lOAD_TIME } from "../../../lib/env";
 
 export class KabumScrappingUseCase {
     constructor(private ProductRepository:ProductRepository){
@@ -17,7 +18,7 @@ export class KabumScrappingUseCase {
 
         //Aguarda o carregamento da pagina
         await page.waitForNetworkIdle({
-            timeout:80000
+            timeout:Number(WS_API_DEFAULT_PAGE_lOAD_TIME)
         })
     
         //garante que o seletor principal vai ser retornado

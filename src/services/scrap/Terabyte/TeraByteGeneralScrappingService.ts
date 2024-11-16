@@ -4,6 +4,7 @@ import { TeraByteLinkCollection } from "../../../collections/StandardLinkCollect
 import { ProductRepository } from "../../../repositories/Product.repository,";
 import { sluggen } from "../../../utils/sluggen";
 import { Product } from "../../../../prisma/deploy-output";
+import { WS_API_DEFAULT_PAGE_lOAD_TIME } from "../../../lib/env";
 
 interface TerabyteProductScrapResponse{
     resList:Product[]
@@ -22,7 +23,7 @@ export class TerabyteProductScrapUseCase {
         //ir até o site desejado
         await page.goto(queryParam);
         await page.waitForNetworkIdle({
-            timeout:80000
+            timeout:Number(WS_API_DEFAULT_PAGE_lOAD_TIME)
         })
 
         const ps:TransferDataObjectFromDOM[] = await page.evaluate(()=>{

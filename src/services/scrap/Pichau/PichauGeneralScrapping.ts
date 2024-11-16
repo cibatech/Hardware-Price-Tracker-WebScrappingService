@@ -1,5 +1,6 @@
 import puppeteer from "puppeteer";
 import { TransferDataObjectFromDOM } from "../../../collections/domRecieverInterface";
+import { WS_API_DEFAULT_PAGE_lOAD_TIME } from "../../../lib/env";
 
 
 export class PichauGeneralScrappingUseCase {
@@ -12,9 +13,12 @@ export class PichauGeneralScrappingUseCase {
         const searchList = CoreUrl;
         const PoquireReturnList:TransferDataObjectFromDOM[] = [];
     
-        await page.goto(searchList, { waitUntil: "networkidle2",timeout:60000 });
+        await page.goto(searchList, { 
+            waitUntil: "networkidle2",
+            timeout:Number(WS_API_DEFAULT_PAGE_lOAD_TIME)
+         });
         
-        await page.waitForNetworkIdle({timeout:40000})
+        await page.waitForNetworkIdle({timeout:Number(WS_API_DEFAULT_PAGE_lOAD_TIME)/2})
     
         const Ps = await page.evaluate(()=>{
             //Encontra elementos específicos 

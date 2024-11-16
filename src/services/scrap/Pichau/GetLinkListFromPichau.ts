@@ -2,6 +2,7 @@ import puppeteer from "puppeteer";
 import { StaticLinkRepository } from "../../../repositories/StaticLink.repository";
 import { PichauLinkCollection } from "../../../collections/StandardLinkCollection";
 import { StaticLink } from "../../../../prisma/indev-output";
+import { WS_API_DEFAULT_PAGE_lOAD_TIME } from "../../../lib/env";
 
 
 interface linkList{
@@ -20,7 +21,7 @@ export class GetPichauLinkListUseCase{
     
         //aguarda até que tudo carregue devidamente
         await page.waitForNetworkIdle({
-            timeout:80000
+            timeout:Number(WS_API_DEFAULT_PAGE_lOAD_TIME)
         })
     
         await page.click("div.MuiGrid-root.MuiGrid-item.MuiGrid-grid-md-4.MuiGrid-grid-xl-3 > button.MuiButtonBase-root[aria-label='menu']")
