@@ -11,3 +11,10 @@ export const KabumLinkCollection = {
         "https://www.kabum.com.br/hardware"
     ]
 }
+
+export const TeraByteLinkCollection = {
+    coreSite:"https://www.terabyteshop.com.br/",
+    SubSitesList:[
+        "https://www.terabyteshop.com.br/hardware",
+    ]
+}
