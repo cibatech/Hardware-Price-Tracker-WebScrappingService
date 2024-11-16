@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { PichauGeneralScrappingUseCase } from "../src/services/Pichau/PichauGeneralScrapping";
-import { PichauLinkCollection } from "../src/collections/StandardLinkCollection";
+import { PichauLinkCollection } from "../../src/collections/StandardLinkCollection";
+import { PichauGeneralScrappingUseCase } from "../../src/services/scrap/Pichau/PichauGeneralScrapping";
 
 
 var SUT:PichauGeneralScrappingUseCase

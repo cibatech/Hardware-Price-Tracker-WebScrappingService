@@ -1,5 +1,6 @@
 import puppeteer from "puppeteer";
-import { TransferDataObjectFromDOM } from "../../collections/domRecieverInterface";
+import { TransferDataObjectFromDOM } from "../../../collections/domRecieverInterface";
+
 
 export class PichauGeneralScrappingUseCase {
     constructor(){}
@@ -31,13 +32,14 @@ export class PichauGeneralScrappingUseCase {
                     const imgReference = element.querySelector("img") as HTMLImageElement;
                     const h2Reference = element.querySelector("h2");
                     const SpanForprice = element.querySelector("span") as HTMLSpanElement;
-                    
+                    const hForTitle = aReference.querySelector("h2.MuiTypography-root.MuiTypography-h6") as HTMLHeadingElement
                     const prepCon:TransferDataObjectFromDOM = {
                         Link:aReference.href,
                         Where:window.location.href,
                         description:h2Reference?h2Reference.innerHTML:null,
                         image:imgReference?imgReference.src:null,
-                        Price:SpanForprice?Number(SpanForprice.innerHTML.replace("R$&nbsp;","").replace(/[^0-9]/g, '')):null
+                        Price:SpanForprice?Number(SpanForprice.innerHTML.replace("R$&nbsp;","").replace(/[^0-9]/g, '')):null,
+                        Title:hForTitle.innerHTML
                     }
                     prepList.push(prepCon)
                 }

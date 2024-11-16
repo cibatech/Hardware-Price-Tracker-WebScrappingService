@@ -1,7 +1,8 @@
 import puppeteer from "puppeteer";
-import { PichauLinkCollection } from "../../collections/StandardLinkCollection";
-import { StaticLinkRepository } from "../../repositories/StaticLink.repository";
-import { StaticLink } from "../../../prisma/indev-output";
+import { StaticLinkRepository } from "../../../repositories/StaticLink.repository";
+import { PichauLinkCollection } from "../../../collections/StandardLinkCollection";
+import { StaticLink } from "../../../../prisma/indev-output";
+
 
 interface linkList{
     Link:string,

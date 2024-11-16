@@ -35,14 +35,18 @@ import { TransferDataObjectFromDOM } from "../../../collections/domRecieverInter
                     Where:window.location.href,
                     image:GetImageElementForLink.src,
                     Link:element.href,
-                    Price:Number(GetPriceFromElement.innerHTML)
+                    Price:Number(GetPriceFromElement.innerHTML),
+                    Title:GetSpanElementFromH3.innerHTML
                 }
                 returnList.push(prop)
             }
         }
         return returnList
     })
+    
+    browser.close()
+
     console.log(ps)
 
-    browser.close()
+
 })()

@@ -31,7 +31,8 @@ import { TransferDataObjectFromDOM } from "../../../collections/domRecieverInter
                 image:imgToLink.src,
                 Link:aElement.href,
                 Where:window.location.href,
-                Price:Number(SpanForprice.innerHTML.replace(",",".").replace(/[^0-9.]/g, ''))
+                Price:Number(SpanForprice.innerHTML.replace(",",".").replace(/[^0-9.]/g, '')),
+                Title:HToDescription.innerHTML
             }
             resList.push(t)
         })
