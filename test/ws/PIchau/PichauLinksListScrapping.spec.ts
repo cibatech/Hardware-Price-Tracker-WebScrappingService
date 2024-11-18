@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it } from "vitest";
 
-import { StaticLinkRepository } from "../../src/repositories/StaticLink.repository";
-import { InMemoryStaticLinkRepository } from "../../src/repositories/InMemory/inMemoryStaticLinkRepository";
-import { GetPichauLinkListUseCase } from "../../src/services/scrap/Pichau/GetLinkListFromPichau";
+import { StaticLinkRepository } from "../../../src/repositories/StaticLink.repository";
+import { InMemoryStaticLinkRepository } from "../../../src/repositories/InMemory/inMemoryStaticLinkRepository";
+import { GetPichauLinkListUseCase } from "../../../src/services/scrap/Pichau/GetLinkListFromPichau";
 
 var SUT:GetPichauLinkListUseCase
 var LinksRep:StaticLinkRepository
