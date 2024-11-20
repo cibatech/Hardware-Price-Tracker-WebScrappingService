@@ -55,9 +55,9 @@ export class PichauGeneralScrappingUseCase {
             }
         })
     
-        console.log({
-            psList:Ps,
-        });
+        // console.log({
+        //     psList:Ps,
+        // });
     
         await page.close();
         await browser.close();

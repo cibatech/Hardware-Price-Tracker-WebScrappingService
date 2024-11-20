@@ -15,7 +15,7 @@ export class TerabyteProductScrapUseCase {
     async execute(queryParam:string){
         //cria uma instancia de um browser
         const browser = await puppeteer.launch({
-            headless:false
+            headless:true
         })
         //Abre uma nova pagina
         const page  = await browser.newPage();
@@ -53,7 +53,7 @@ export class TerabyteProductScrapUseCase {
         //closes the browser
         browser.close()
 
-        console.log(ps)
+        // console.log(ps)
 
         const resList:Product[] = []
         ps.forEach(async Element=>{

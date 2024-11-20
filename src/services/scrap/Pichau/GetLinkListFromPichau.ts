@@ -3,6 +3,7 @@ import { StaticLinkRepository } from "../../../repositories/StaticLink.repositor
 import { PichauLinkCollection } from "../../../collections/StandardLinkCollection";
 import { StaticLink } from "../../../../prisma/indev-output";
 import { WS_API_DEFAULT_PAGE_lOAD_TIME } from "../../../lib/env";
+import { create } from "domain";
 
 
 interface linkList{
@@ -13,7 +14,7 @@ export class GetPichauLinkListUseCase{
     constructor(private LinksRepository:StaticLinkRepository){}
     async execute(){
         const browser = await puppeteer.launch({
-            headless:false
+            headless:true
         });
         const page = await browser.newPage();
     
@@ -23,7 +24,7 @@ export class GetPichauLinkListUseCase{
         await page.waitForNetworkIdle({
             timeout:Number(WS_API_DEFAULT_PAGE_lOAD_TIME)
         })
-    
+        await page.waitForSelector("div.MuiGrid-root.MuiGrid-item.MuiGrid-grid-md-4.MuiGrid-grid-xl-3 > button.MuiButtonBase-root[aria-label='menu']")
         await page.click("div.MuiGrid-root.MuiGrid-item.MuiGrid-grid-md-4.MuiGrid-grid-xl-3 > button.MuiButtonBase-root[aria-label='menu']")
         await page.waitForSelector("div.MuiPaper-root.MuiDrawer-paper.MuiDrawer-paperAnchorLeft.MuiPaper-elevation16")
         const ps = await page.evaluate(()=>{
@@ -52,7 +53,8 @@ export class GetPichauLinkListUseCase{
                 created.push(Link)
             }
         })
-
+        console.log(created);
+        
         return{
             StaticLinkList:created
         }

@@ -27,7 +27,7 @@ describe("Good case",()=>{
         await SUT.excute(KabumLinkCollection.subSitesList[0]);
         const test = await SUT.excute(KabumLinkCollection.subSitesList[0]);
 
-        console.log(test.PriceList)
+        // console.log(test.PriceList)
     },{
         timeout:Number(WS_API_DEFAULT_PAGE_lOAD_TIME)+20000
     })

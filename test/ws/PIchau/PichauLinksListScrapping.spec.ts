@@ -3,6 +3,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { StaticLinkRepository } from "../../../src/repositories/StaticLink.repository";
 import { InMemoryStaticLinkRepository } from "../../../src/repositories/InMemory/inMemoryStaticLinkRepository";
 import { GetPichauLinkListUseCase } from "../../../src/services/scrap/Pichau/GetLinkListFromPichau";
+import { WS_API_DEFAULT_PAGE_lOAD_TIME } from "../../../src/lib/env";
 
 var SUT:GetPichauLinkListUseCase
 var LinksRep:StaticLinkRepository
@@ -13,9 +14,9 @@ describe("Good Case",()=>{
     })
     it("Should be able to return the linkList of Pichau",async()=>{
         const resp = await SUT.execute();
-        console.log(resp)
+        // console.log(resp)
         expect(resp.StaticLinkList[0].Link).toBe("https://www.pichau.com.br/hardware")
     },{
-        timeout:80000
+        timeout:Number(WS_API_DEFAULT_PAGE_lOAD_TIME)+20000
     })
 })
