@@ -14,7 +14,7 @@ export class GetPichauLinkListUseCase{
     constructor(private LinksRepository:StaticLinkRepository){}
     async execute(){
         const browser = await puppeteer.launch({
-            headless:true
+            headless:false
         });
         const page = await browser.newPage();
     

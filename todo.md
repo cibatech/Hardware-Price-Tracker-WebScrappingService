@@ -1,2 +1,1 @@
-- Sqlite database should register a history of aplication mistakes and everything that happens there
-- Fix Kabum price return issue
+- got issues at: Terabyte and Pichau

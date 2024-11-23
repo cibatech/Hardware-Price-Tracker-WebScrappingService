@@ -1,8 +1,8 @@
-import fastify from "fastify";
-import { Server } from "http";
-import { HOST, PORT } from "./lib/env";
 
-const app = fastify()
+import { HOST, PORT } from "./lib/env";
+import { app } from "./lib/fastify";
+
+
 
 
 app.listen({

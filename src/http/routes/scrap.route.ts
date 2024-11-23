@@ -1,6 +1,7 @@
 import { FastifyInstance } from "fastify";
-import { PichauProductScrap } from "../controllers/WebScrapping/index.ts";
+import { PichauProductScrapController, PichauScrapLinkListController } from "../controllers/WebScrapping/index.ts";
 
 export async function scrapRoute(app:FastifyInstance) {
-    app.get("/",PichauProductScrap)
+    app.get("/",PichauProductScrapController)
+    app.post("/pichau/links",PichauScrapLinkListController)
 }

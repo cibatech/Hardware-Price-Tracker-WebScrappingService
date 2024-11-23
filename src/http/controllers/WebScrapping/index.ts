@@ -1,1 +1,1 @@
-export * from "./Pichau/PichauScrapController.ts"
+export * from "./Pichau/index"
