@@ -1,10 +1,11 @@
 import puppeteer from "puppeteer";
 import { TransferDataObjectFromDOM } from "../../../collections/domRecieverInterface";
 import { WS_API_DEFAULT_PAGE_lOAD_TIME } from "../../../lib/env";
+import { ProductRepository } from "../../../repositories/Product.repository,";
 
 
 export class PichauGeneralScrappingUseCase {
-    constructor(){}
+    constructor(private ProductRepository:ProductRepository){}
     async execute(CoreUrl:string){
         const browser = await puppeteer.launch({ headless: true });
         const page = await browser.newPage();
