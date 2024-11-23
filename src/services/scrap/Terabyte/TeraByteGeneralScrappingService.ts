@@ -3,15 +3,16 @@ import { TransferDataObjectFromDOM } from "../../../collections/domRecieverInter
 import { TeraByteLinkCollection } from "../../../collections/StandardLinkCollection";
 import { ProductRepository } from "../../../repositories/Product.repository,";
 import { sluggen } from "../../../utils/sluggen";
-import { Product } from "../../../../prisma/deploy-output";
+import { Price, Product } from "../../../../prisma/deploy-output";
 import { WS_API_DEFAULT_PAGE_lOAD_TIME } from "../../../lib/env";
+import { PriceReferenceRepository } from "../../../repositories/PriceReference.repository";
 
 interface TerabyteProductScrapResponse{
     resList:Product[]
 }
 
 export class TerabyteProductScrapUseCase {
-    constructor(private ProductRepository:ProductRepository){}
+    constructor(private ProductRepository:ProductRepository,private PriceReferenceRepository:PriceReferenceRepository){}
     async execute(queryParam:string){
         //cria uma instancia de um browser
         const browser = await puppeteer.launch({
@@ -56,23 +57,40 @@ export class TerabyteProductScrapUseCase {
         // console.log(ps)
 
         const resList:Product[] = []
-        ps.forEach(async Element=>{
-            resList.push(
-                await this.ProductRepository.create({
-                    Kind:"TeraByte",
-                    Link:Element.Link,
-                    Slug:sluggen(String(Element.description)),
-                    Value:Number(Element.Price),
-                    Where:Element.Where,
-                    Description:Element.description,
-                    ImageUrl:Element.image,
-                    Title:Element.Title
-                })
-            )
-        })
+        const priceList:Price[] = [];
+        for(let i=0;i<=ps.length;i++){
+            const Element = ps[i];
+            const theresAlreadyAnyProductWithThisLink = await this.ProductRepository.findByLink(Element.Link);
+            if(theresAlreadyAnyProductWithThisLink){
+                priceList.push(
+                    await this.PriceReferenceRepository.create({
+                        AtDate:new Date(),
+                        Price:Number(Element.Price),
+                        ProdId:theresAlreadyAnyProductWithThisLink.Id,
+
+                    })
+                )
+            }else{
+                resList.push(
+                    await this.ProductRepository.create({
+                        Kind:"TeraByte",
+                        Link:Element.Link,
+                        Slug:sluggen(String(Element.description)),
+                        Value:Number(Element.Price),
+                        Where:Element.Where,
+                        Description:Element.description,
+                        ImageUrl:Element.image,
+                        Title:Element.Title
+                    })
+                )
+            }
+        }
+
+
 
         return {
-            resList 
+            resList,
+            priceList
         }
     }
 

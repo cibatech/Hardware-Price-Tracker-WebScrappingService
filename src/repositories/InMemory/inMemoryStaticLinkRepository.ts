@@ -10,7 +10,8 @@ export class InMemoryStaticLinkRepository implements StaticLinkRepository{
         const Link:StaticLink = {
             GeneratedAt:new Date(),
             Id:this.itens.length+1,
-            Link:String(data.Link)
+            Link:String(data.Link),
+            Where:String(data.Where)
         }
         this.itens.push(Link)
         return Link

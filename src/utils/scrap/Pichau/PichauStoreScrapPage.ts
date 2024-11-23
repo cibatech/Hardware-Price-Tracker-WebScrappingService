@@ -35,7 +35,8 @@ export async function PichauScrapStore(CoreUrl:string) {
                     Where:window.location.href,
                     description:h2Reference?h2Reference.innerHTML:null,
                     image:imgReference?imgReference.src:null,
-                    Price:SpanForprice?Number(SpanForprice.innerHTML.replace("R$&nbsp;","")):null
+                    Price:SpanForprice?Number(SpanForprice.innerHTML.replace("R$&nbsp;","")):null,
+                    Title:h2Reference?h2Reference.innerHTML:"null"
                 }
                 prepList.push(prepCon)
             }

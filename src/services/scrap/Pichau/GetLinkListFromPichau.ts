@@ -48,7 +48,8 @@ export class GetPichauLinkListUseCase{
         ps.forEach(async (Element,index)=>{
             if(index>0&&index<18){
                 const Link = await this.LinksRepository.create({
-                    Link:Element.Link
+                    Link:Element.Link,
+                    Where:"Pichau"
                 })
                 created.push(Link)
             }

@@ -953,18 +953,21 @@ export namespace Prisma {
     Id: number | null
     Link: string | null
     GeneratedAt: Date | null
+    Where: string | null
   }
 
   export type StaticLinkMaxAggregateOutputType = {
     Id: number | null
     Link: string | null
     GeneratedAt: Date | null
+    Where: string | null
   }
 
   export type StaticLinkCountAggregateOutputType = {
     Id: number
     Link: number
     GeneratedAt: number
+    Where: number
     _all: number
   }
 
@@ -981,18 +984,21 @@ export namespace Prisma {
     Id?: true
     Link?: true
     GeneratedAt?: true
+    Where?: true
   }
 
   export type StaticLinkMaxAggregateInputType = {
     Id?: true
     Link?: true
     GeneratedAt?: true
+    Where?: true
   }
 
   export type StaticLinkCountAggregateInputType = {
     Id?: true
     Link?: true
     GeneratedAt?: true
+    Where?: true
     _all?: true
   }
 
@@ -1086,6 +1092,7 @@ export namespace Prisma {
     Id: number
     Link: string
     GeneratedAt: Date
+    Where: string
     _count: StaticLinkCountAggregateOutputType | null
     _avg: StaticLinkAvgAggregateOutputType | null
     _sum: StaticLinkSumAggregateOutputType | null
@@ -1111,18 +1118,21 @@ export namespace Prisma {
     Id?: boolean
     Link?: boolean
     GeneratedAt?: boolean
+    Where?: boolean
   }, ExtArgs["result"]["staticLink"]>
 
   export type StaticLinkSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     Id?: boolean
     Link?: boolean
     GeneratedAt?: boolean
+    Where?: boolean
   }, ExtArgs["result"]["staticLink"]>
 
   export type StaticLinkSelectScalar = {
     Id?: boolean
     Link?: boolean
     GeneratedAt?: boolean
+    Where?: boolean
   }
 
 
@@ -1133,6 +1143,7 @@ export namespace Prisma {
       Id: number
       Link: string
       GeneratedAt: Date
+      Where: string
     }, ExtArgs["result"]["staticLink"]>
     composites: {}
   }
@@ -1529,6 +1540,7 @@ export namespace Prisma {
     readonly Id: FieldRef<"StaticLink", 'Int'>
     readonly Link: FieldRef<"StaticLink", 'String'>
     readonly GeneratedAt: FieldRef<"StaticLink", 'DateTime'>
+    readonly Where: FieldRef<"StaticLink", 'String'>
   }
     
 
@@ -2693,7 +2705,8 @@ export namespace Prisma {
   export const StaticLinkScalarFieldEnum: {
     Id: 'Id',
     Link: 'Link',
-    GeneratedAt: 'GeneratedAt'
+    GeneratedAt: 'GeneratedAt',
+    Where: 'Where'
   };
 
   export type StaticLinkScalarFieldEnum = (typeof StaticLinkScalarFieldEnum)[keyof typeof StaticLinkScalarFieldEnum]
@@ -2768,12 +2781,14 @@ export namespace Prisma {
     Id?: IntFilter<"StaticLink"> | number
     Link?: StringFilter<"StaticLink"> | string
     GeneratedAt?: DateTimeFilter<"StaticLink"> | Date | string
+    Where?: StringFilter<"StaticLink"> | string
   }
 
   export type StaticLinkOrderByWithRelationInput = {
     Id?: SortOrder
     Link?: SortOrder
     GeneratedAt?: SortOrder
+    Where?: SortOrder
   }
 
   export type StaticLinkWhereUniqueInput = Prisma.AtLeast<{
@@ -2783,12 +2798,14 @@ export namespace Prisma {
     NOT?: StaticLinkWhereInput | StaticLinkWhereInput[]
     Link?: StringFilter<"StaticLink"> | string
     GeneratedAt?: DateTimeFilter<"StaticLink"> | Date | string
+    Where?: StringFilter<"StaticLink"> | string
   }, "Id">
 
   export type StaticLinkOrderByWithAggregationInput = {
     Id?: SortOrder
     Link?: SortOrder
     GeneratedAt?: SortOrder
+    Where?: SortOrder
     _count?: StaticLinkCountOrderByAggregateInput
     _avg?: StaticLinkAvgOrderByAggregateInput
     _max?: StaticLinkMaxOrderByAggregateInput
@@ -2803,6 +2820,7 @@ export namespace Prisma {
     Id?: IntWithAggregatesFilter<"StaticLink"> | number
     Link?: StringWithAggregatesFilter<"StaticLink"> | string
     GeneratedAt?: DateTimeWithAggregatesFilter<"StaticLink"> | Date | string
+    Where?: StringWithAggregatesFilter<"StaticLink"> | string
   }
 
   export type IssueWhereInput = {
@@ -2855,40 +2873,47 @@ export namespace Prisma {
   export type StaticLinkCreateInput = {
     Link: string
     GeneratedAt?: Date | string
+    Where: string
   }
 
   export type StaticLinkUncheckedCreateInput = {
     Id?: number
     Link: string
     GeneratedAt?: Date | string
+    Where: string
   }
 
   export type StaticLinkUpdateInput = {
     Link?: StringFieldUpdateOperationsInput | string
     GeneratedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Where?: StringFieldUpdateOperationsInput | string
   }
 
   export type StaticLinkUncheckedUpdateInput = {
     Id?: IntFieldUpdateOperationsInput | number
     Link?: StringFieldUpdateOperationsInput | string
     GeneratedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Where?: StringFieldUpdateOperationsInput | string
   }
 
   export type StaticLinkCreateManyInput = {
     Id?: number
     Link: string
     GeneratedAt?: Date | string
+    Where: string
   }
 
   export type StaticLinkUpdateManyMutationInput = {
     Link?: StringFieldUpdateOperationsInput | string
     GeneratedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Where?: StringFieldUpdateOperationsInput | string
   }
 
   export type StaticLinkUncheckedUpdateManyInput = {
     Id?: IntFieldUpdateOperationsInput | number
     Link?: StringFieldUpdateOperationsInput | string
     GeneratedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Where?: StringFieldUpdateOperationsInput | string
   }
 
   export type IssueCreateInput = {
@@ -2980,6 +3005,7 @@ export namespace Prisma {
     Id?: SortOrder
     Link?: SortOrder
     GeneratedAt?: SortOrder
+    Where?: SortOrder
   }
 
   export type StaticLinkAvgOrderByAggregateInput = {
@@ -2990,12 +3016,14 @@ export namespace Prisma {
     Id?: SortOrder
     Link?: SortOrder
     GeneratedAt?: SortOrder
+    Where?: SortOrder
   }
 
   export type StaticLinkMinOrderByAggregateInput = {
     Id?: SortOrder
     Link?: SortOrder
     GeneratedAt?: SortOrder
+    Where?: SortOrder
   }
 
   export type StaticLinkSumOrderByAggregateInput = {
