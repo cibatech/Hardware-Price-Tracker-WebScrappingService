@@ -17,4 +17,8 @@ export class PrismaLinkRepository implements StaticLinkRepository{
         })
         return deleted
     }
+    async deleteAll():Promise<Prisma.BatchPayload>{
+        const deleted = await prisma_dev.staticLink.deleteMany()
+        return deleted;
+    }
 }

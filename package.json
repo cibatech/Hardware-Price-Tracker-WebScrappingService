@@ -4,7 +4,9 @@
   "main": "index.js",
   "scripts": {
     "db:indev": "npx prisma migrate dev --schema=prisma/indev.prisma",
+    "db:ui-indev":"npx prisma studio --schema=prisma/indev.prisma",
     "db:deploy": "npx prisma generate --schema=prisma/deploy.prisma",
+    "db:ui-deploy":"npx prisma studio --schema=prisma/deploy.prisma",
     "test": "npx vitest --run",
     "test:ws": "npx vitest --run test/ws",
     "test:kabum": "npx vitest --run test/ws/Kabum",

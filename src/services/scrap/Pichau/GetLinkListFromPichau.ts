@@ -9,9 +9,24 @@ import { create } from "domain";
 interface linkList{
     Link:string,
 }
-
+/**
+ * Class responsible for scraping and retrieving a list of links from Pichau's website
+ * and storing them in a static link repository.
+ */
 export class GetPichauLinkListUseCase{
+    /**
+     * Creates an instance of GetPichauLinkListUseCase.
+     * 
+     * @param LinksRepository - A repository for handling operations related to static links.
+     */
     constructor(private LinksRepository:StaticLinkRepository){}
+    /**
+     * Executes the use case to scrape links from Pichau's website, process them, 
+     * and store them in the static link repository.
+     * 
+     * @returns An object containing the list of created static links.
+     * @throws {Error} Throws an error if any issues occur during browser automation or repository operations.
+     */
     async execute(){
         const browser = await puppeteer.launch({
             headless:false
