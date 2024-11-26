@@ -22,4 +22,11 @@ export class InMemoryStaticLinkRepository implements StaticLinkRepository{
         this.itens.slice(Lid)
         return link
     }
+    async deleteAll(): Promise<Prisma.BatchPayload> {
+        const oldSize = this.itens.length
+        this.itens = [];
+        return {
+            count:oldSize
+        }
+    }
 }

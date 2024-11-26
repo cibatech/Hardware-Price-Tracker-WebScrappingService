@@ -6,7 +6,7 @@ export class InMemoryPriceReferenceRepository implements PriceReferenceRepositor
     public list:Price[] = []
     async create(data: Prisma.PriceUncheckedCreateInput): Promise<Price> {
         const price:Price = {
-            AtDate:new Date(data.AtDate),
+            AtDate:data.AtDate?new Date(data.AtDate):new Date(),
             Id:randomUUID(),
             Price:Number(data.Price),
             ProdId:String(data.ProdId)

@@ -1,1 +1,2 @@
 - FIx Terabyte link list return
+- Change price to "current price" and update this price with the current one
