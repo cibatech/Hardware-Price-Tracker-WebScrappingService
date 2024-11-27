@@ -8,4 +8,5 @@ export async function dropLinksTableBeforeAddingNewLinks(req:FastifyRequest,res:
     const prismaDb = new PrismaLinkRepository();
     //deletes every Link resgistry inside the database
     prismaDb.deleteAll()
+    console.log("Deleted LinksList previous database")
 }

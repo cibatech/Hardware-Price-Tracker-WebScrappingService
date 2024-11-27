@@ -6,6 +6,7 @@ import { WS_API_DEFAULT_PAGE_lOAD_TIME } from "../../../src/lib/env";
 import { TerabyteProductScrapUseCase } from "../../../src/services/scrap/Terabyte/TeraByteGeneralScrappingService";
 import { InMemoryStaticLinkRepository } from "../../../src/repositories/InMemory/inMemoryStaticLinkRepository";
 import { InMemoryPriceReferenceRepository } from "../../../src/repositories/InMemory/InMemoryPriceReferenceRepository";
+import { warn } from "console";
 
 
 var SUT:TerabyteProductScrapUseCase
@@ -25,4 +26,6 @@ describe("Good case",()=>{
     },{
         timeout:Number(WS_API_DEFAULT_PAGE_lOAD_TIME)+20000
     })
+
+    warn("writes here a test to price reference")
 })

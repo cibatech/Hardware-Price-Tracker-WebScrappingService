@@ -29,7 +29,7 @@ export class GetPichauLinkListUseCase{
      */
     async execute(){
         const browser = await puppeteer.launch({
-            headless:false
+            headless:true
         });
         const page = await browser.newPage();
     
@@ -61,7 +61,7 @@ export class GetPichauLinkListUseCase{
 
         const created:StaticLink[] = [] 
         ps.forEach(async (Element,index)=>{
-            if(index>0&&index<18){
+            if(index>6&&index<18){
                 const Link = await this.LinksRepository.create({
                     Link:Element.Link,
                     Where:"Pichau"

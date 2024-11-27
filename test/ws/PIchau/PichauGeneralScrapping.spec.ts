@@ -18,8 +18,9 @@ describe("Good Case",async()=>{
     it("Should be able to scrap pichau",async()=>{
         const ps = await SUT.execute(PichauLinkCollection.subSitesList[0]);
 
-        expect(ps.ResList).toHaveLength(36)
+        expect(ps.resList).toHaveLength(36)
     },{
         timeout:Number(WS_API_DEFAULT_PAGE_lOAD_TIME)+20000
     })
+    console.warn("writes here a test to price reference")
 })

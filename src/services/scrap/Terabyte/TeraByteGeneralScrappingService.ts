@@ -6,6 +6,7 @@ import { sluggen } from "../../../utils/sluggen";
 import { Price, Product } from "../../../../prisma/deploy-output";
 import { WS_API_DEFAULT_PAGE_lOAD_TIME } from "../../../lib/env";
 import { PriceReferenceRepository } from "../../../repositories/PriceReference.repository";
+import { ScrapTerabyteProductListFromAPage } from "../../../utils/scrap/TeraByte/TeraByteGeneralScrapping";
 
 interface TerabyteProductScrapResponse{
     resList:Product[]
@@ -14,54 +15,26 @@ interface TerabyteProductScrapResponse{
 export class TerabyteProductScrapUseCase {
     constructor(private ProductRepository:ProductRepository,private PriceReferenceRepository:PriceReferenceRepository){}
     async execute(queryParam:string){
-        //cria uma instancia de um browser
-        const browser = await puppeteer.launch({
-            headless:true
-        })
-        //Abre uma nova pagina
-        const page  = await browser.newPage();
 
-        //ir até o site desejado
-        await page.goto(queryParam);
-        await page.waitForNetworkIdle({
-            timeout:Number(WS_API_DEFAULT_PAGE_lOAD_TIME)
-        })
-
-        const ps:TransferDataObjectFromDOM[] = await page.evaluate(()=>{
-            const DOM = document.querySelector(".products-grid") as HTMLDivElement
-            const ItensList = DOM.querySelectorAll("div.product-item") as NodeListOf<HTMLDivElement>
-            const resList:TransferDataObjectFromDOM[] = []
-
-            ItensList.forEach(Element=>{
-                const aElement = Element.querySelector("a.product-item__name") as HTMLAnchorElement
-                const HToDescription = aElement.querySelector("h2") as HTMLHeadingElement
-                const imgToLink = Element.querySelector("img.image-thumbnail") as HTMLImageElement
-                const SpanForprice = Element.querySelector("div.product-item__new-price > span") as HTMLSpanElement
-                const t:TransferDataObjectFromDOM = {
-                    description:HToDescription.innerHTML,
-                    image:imgToLink.src,
-                    Link:aElement.href,
-                    Where:window.location.href,
-                    Price:Number(SpanForprice.innerHTML.replace(",",".").replace(/[^0-9.]/g, '')),
-                    Title:HToDescription.innerHTML
-                }
-                resList.push(t)
-            })
-
-            return resList
-
-        })
-        //closes the browser
-        browser.close()
-
-        // console.log(ps)
-
-        const resList:Product[] = []
+        //call the scrapping function
+        const ps = await ScrapTerabyteProductListFromAPage(queryParam);
+        
+        // uses to check if there's already any link reference in the products list. if the answear is false so it will create a new product. if it is true it will update the products price and create a price reference of the new value.
+        
+        const resList:Product[] = [];
         const priceList:Price[] = [];
-        for(let i=0;i<=ps.length;i++){
+
+        for(let i=0;i<ps.length;i++){
             const Element = ps[i];
             const theresAlreadyAnyProductWithThisLink = await this.ProductRepository.findByLink(Element.Link);
             if(theresAlreadyAnyProductWithThisLink){
+                //add the price reference to the product and updates the product with the newest price.
+
+                //updates the product with the new price
+                this.ProductRepository.update(theresAlreadyAnyProductWithThisLink.Id,{
+                    Value:Number(Element.Price)
+                })
+
                 priceList.push(
                     await this.PriceReferenceRepository.create({
                         AtDate:new Date(),
@@ -71,6 +44,7 @@ export class TerabyteProductScrapUseCase {
                     })
                 )
             }else{
+                //Add the new product to the reslist
                 resList.push(
                     await this.ProductRepository.create({
                         Kind:"TeraByte",
