@@ -1,5 +1,5 @@
 import { FastifyInstance } from "fastify";
-import { PichauProductScrapController, PichauScrapLinkListController, TeraByteGetStaticLinkController } from "../controllers/WebScrapping/index.ts";
+import { KabumGeneralScrapPageController, PichauProductScrapController, PichauScrapLinkListController, TeraByteGetStaticLinkController } from "../controllers/WebScrapping/index.ts";
 import { dropLinksTableBeforeAddingNewLinks } from "../midlewares/DropLinkListBeforeAddingMoreLinks.ts";
 
 export async function scrapRoute(app:FastifyInstance) {
@@ -13,4 +13,8 @@ export async function scrapRoute(app:FastifyInstance) {
     app.post("/terabyte/links",{
         preHandler:[dropLinksTableBeforeAddingNewLinks]
     },TeraByteGetStaticLinkController)
+
+
+    //FullScaleScrapRoutes
+    app.post("/kabum/page",KabumGeneralScrapPageController)
 }

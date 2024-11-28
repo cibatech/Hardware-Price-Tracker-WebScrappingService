@@ -6,7 +6,7 @@ import { WS_API_DEFAULT_PAGE_lOAD_TIME } from "../../../lib/env";
 export async function ScrapTerabyteProductListFromAPage(queryParam:string):Promise<TransferDataObjectFromDOM[]>{
      //cria uma instancia de um browser
      const browser = await puppeteer.launch({
-        headless:false
+        headless:true
     })
     //Abre uma nova pagina
     const page  = await browser.newPage();
