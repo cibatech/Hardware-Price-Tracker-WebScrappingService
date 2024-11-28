@@ -20,7 +20,10 @@ import { WS_API_DEFAULT_PAGE_lOAD_TIME } from "../../../lib/env";
     //do some clicks to have acess to "departamentos" where we hope to find the a list that will be used to provide the link
     await page.click("#menuHamburguer")
     await page.waitForSelector("li.sc-9a86d81f-9.sc-9a86d81f-10.hHunIe.eelzbs > a")
+    
     await page.click("li.sc-9a86d81f-9.sc-9a86d81f-10.hHunIe.eelzbs > a")
+    await page.waitForSelector("div.sc-f7bf8a56-5.fEXaZq")
+
     const ps = await page.evaluate(()=>{
         const domProp = document.querySelector("div.sc-f7bf8a56-5.fEXaZq") as HTMLDivElement;
         const AnchorList = domProp.querySelectorAll("a.sc-f7bf8a56-6.kRYJRi") as NodeListOf<HTMLAnchorElement>

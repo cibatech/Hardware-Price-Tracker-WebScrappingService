@@ -4,13 +4,12 @@ import { randomUUID } from "crypto";
 import { TransferDataObjectFromDOM } from "../../../collections/domRecieverInterface";
 import { WS_API_DEFAULT_PAGE_lOAD_TIME } from "../../../lib/env";
 
-export async function PichauScrapStore(CoreUrl:string) {
-    const browser = await puppeteer.launch({ headless: false });
+export async function PichauScrapStore(CoreUrl:string):Promise<TransferDataObjectFromDOM[]> {
+    const browser = await puppeteer.launch({ headless: true });
     const page = await browser.newPage();
     await page.setViewport({ width: 1080, height: 1024 });
 
     const searchList = CoreUrl;
-    const PoquireReturnList:TransferDataObjectFromDOM[] = [];
 
     await page.goto(searchList, { 
         waitUntil: "networkidle2",
@@ -19,7 +18,7 @@ export async function PichauScrapStore(CoreUrl:string) {
     
     await page.waitForNetworkIdle({timeout:Number(WS_API_DEFAULT_PAGE_lOAD_TIME)/2})
     await page.waitForSelector(".MuiGrid-root.MuiGrid-container.MuiGrid-spacing-xs-3")
-    const Ps = await page.evaluate(()=>{
+    const Ps:TransferDataObjectFromDOM[] = await page.evaluate(()=>{
         //Encontra elementos específicos 
         const DOMList = document.querySelector(".MuiGrid-root.MuiGrid-container.MuiGrid-spacing-xs-3") as HTMLDivElement
         const iDivList = DOMList.querySelectorAll(".MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-6.MuiGrid-grid-sm-6.MuiGrid-grid-md-4.MuiGrid-grid-lg-3.MuiGrid-grid-xl-2") as NodeListOf<HTMLDivElement>
@@ -47,11 +46,7 @@ export async function PichauScrapStore(CoreUrl:string) {
                 prepList.push(prepCon)
             }
         }
-        if(prepList[0]){
-            return prepList
-        }else{
-            return false
-        }
+        return prepList
     })
 
     console.log({
@@ -60,12 +55,10 @@ export async function PichauScrapStore(CoreUrl:string) {
 
     await page.close();
     await browser.close();
+
+    return Ps
 }
 
-
-        // page.screenshot({
-        //     type:"png",
-        //     path:`./${randomUUID()}.png`,
-        // })
-
-PichauScrapStore(PichauLinkCollection.subSitesList[0])
+// (async()=>{
+//    await PichauScrapStore(PichauLinkCollection.subSitesList[0])
+// })()

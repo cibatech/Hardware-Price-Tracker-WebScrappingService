@@ -22,5 +22,13 @@ describe("Good Case",async()=>{
     },{
         timeout:Number(WS_API_DEFAULT_PAGE_lOAD_TIME)+20000
     })
+    it("Should be able to generate a price reference of the already existing product",async()=>{
+        await SUT.execute(PichauLinkCollection.subSitesList[0]);
+        const test = await SUT.execute(PichauLinkCollection.subSitesList[0]);
+
+        expect(test.priceList[0].Price).toBeTypeOf("number")
+    },{
+        timeout:Number(WS_API_DEFAULT_PAGE_lOAD_TIME)+20000
+    })
     console.warn("writes here a test to price reference")
 })

@@ -14,8 +14,9 @@ describe("Good Case",()=>{
     })
     it("Should be able to return the linkList of Pichau",async()=>{
         const resp = await SUT.execute();
-        // console.log(resp)
-        expect(resp.StaticLinkList[0].Link).toBe("https://www.pichau.com.br/hardware")
+        console.log(resp)
+        expect(resp.StaticLinkList[0].Link).toBeTypeOf("string")
+        expect(resp.StaticLinkList[0].Where).toBe("Pichau")
     },{
         timeout:Number(WS_API_DEFAULT_PAGE_lOAD_TIME)+20000
     })

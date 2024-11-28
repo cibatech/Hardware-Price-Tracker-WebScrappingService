@@ -4,6 +4,7 @@ import { PichauLinkCollection } from "../../../collections/StandardLinkCollectio
 import { StaticLink } from "../../../../prisma/indev-output";
 import { WS_API_DEFAULT_PAGE_lOAD_TIME } from "../../../lib/env";
 import { create } from "domain";
+import { PichauScrapCaregoyLinks } from "../../../utils/scrap/Pichau/PichauGetCategoryLinkList";
 
 
 interface linkList{
@@ -28,48 +29,19 @@ export class GetPichauLinkListUseCase{
      * @throws {Error} Throws an error if any issues occur during browser automation or repository operations.
      */
     async execute(){
-        const browser = await puppeteer.launch({
-            headless:true
-        });
-        const page = await browser.newPage();
-    
-        await page.goto(PichauLinkCollection.coreSite)
-    
-        //aguarda até que tudo carregue devidamente
-        await page.waitForNetworkIdle({
-            timeout:Number(WS_API_DEFAULT_PAGE_lOAD_TIME)
-        })
-        await page.waitForSelector("div.MuiGrid-root.MuiGrid-item.MuiGrid-grid-md-4.MuiGrid-grid-xl-3 > button.MuiButtonBase-root[aria-label='menu']")
-        await page.click("div.MuiGrid-root.MuiGrid-item.MuiGrid-grid-md-4.MuiGrid-grid-xl-3 > button.MuiButtonBase-root[aria-label='menu']")
-        await page.waitForSelector("div.MuiPaper-root.MuiDrawer-paper.MuiDrawer-paperAnchorLeft.MuiPaper-elevation16")
-        const ps = await page.evaluate(()=>{
-            const DOMCore = document.querySelector("div.MuiPaper-root.MuiDrawer-paper.MuiDrawer-paperAnchorLeft.MuiPaper-elevation16") as HTMLDivElement;
-            const LiList = DOMCore.querySelectorAll("li" ) as NodeListOf<HTMLLIElement>
-            var resList:linkList[] = []
-    
-            LiList.forEach(Element=>{
-                const searchForA = Element.querySelector("a") as HTMLAnchorElement
-                resList.push({
-                    Link:searchForA.href
-                })
-            })
-    
-            return resList
-        })
-        // console.log(ps)
-        await browser.close()
+        const ps = await PichauScrapCaregoyLinks()
 
         const created:StaticLink[] = [] 
         ps.forEach(async (Element,index)=>{
             if(index>6&&index<18){
                 const Link = await this.LinksRepository.create({
-                    Link:Element.Link,
+                    Link:Element,
                     Where:"Pichau"
                 })
                 created.push(Link)
             }
         })
-        console.log(created);
+        // console.log(created);
         
         return{
             StaticLinkList:created
