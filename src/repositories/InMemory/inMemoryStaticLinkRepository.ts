@@ -10,7 +10,8 @@ export class InMemoryStaticLinkRepository implements StaticLinkRepository{
         const Link:StaticLink = {
             GeneratedAt:new Date(),
             Id:this.itens.length+1,
-            Link:String(data.Link)
+            Link:String(data.Link),
+            Where:String(data.Where)
         }
         this.itens.push(Link)
         return Link
@@ -20,5 +21,12 @@ export class InMemoryStaticLinkRepository implements StaticLinkRepository{
         const link = this.itens[Lid]
         this.itens.slice(Lid)
         return link
+    }
+    async deleteAll(): Promise<Prisma.BatchPayload> {
+        const oldSize = this.itens.length
+        this.itens = [];
+        return {
+            count:oldSize
+        }
     }
 }

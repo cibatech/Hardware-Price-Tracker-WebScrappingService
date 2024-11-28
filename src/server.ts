@@ -1,12 +1,13 @@
-import fastify from "fastify";
-import { Server } from "http";
+
 import { HOST, PORT } from "./lib/env";
-
-const app = fastify()
-
-const httpServer = new Server(app.server);
+import { app } from "./lib/fastify";
 
 
 
-httpServer.listen(Number(PORT),HOST);
-console.log(`server running at: http://${HOST}:${PORT}`)
+
+app.listen({
+    port:Number(PORT),
+    host:HOST
+},(err,path)=>{
+    console.log(err||path);
+})

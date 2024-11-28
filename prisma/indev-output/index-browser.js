@@ -122,7 +122,8 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 exports.Prisma.StaticLinkScalarFieldEnum = {
   Id: 'Id',
   Link: 'Link',
-  GeneratedAt: 'GeneratedAt'
+  GeneratedAt: 'GeneratedAt',
+  Where: 'Where'
 };
 
 exports.Prisma.IssueScalarFieldEnum = {

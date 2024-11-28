@@ -1,2 +1,5 @@
-- Sqlite database should register a history of aplication mistakes and everything that happens there
-- Fix Kabum price return issue
+- FIx Terabyte link list return
+- Change price to "current price" and update this price with the current one
+
+- Write Kabum Scrap return
+- rewrites pichau double index test
