@@ -8,7 +8,8 @@ export const PichauLinkCollection = {
 export const KabumLinkCollection = {
     coreSite:"https://www.kabum.com.br",
     subSitesList:[
-        "https://www.kabum.com.br/hardware"
+        "https://www.kabum.com.br/hardware",
+        "https://www.kabum.com.br/perifericos"
     ]
 }
 

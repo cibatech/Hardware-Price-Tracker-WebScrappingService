@@ -6,7 +6,7 @@ import { WS_API_DEFAULT_PAGE_lOAD_TIME } from "../../../lib/env";
 export async function ScrapTerabyteProductListFromAPage(queryParam:string):Promise<TransferDataObjectFromDOM[]>{
      //cria uma instancia de um browser
      const browser = await puppeteer.launch({
-        headless:true
+        headless:false
     })
     //Abre uma nova pagina
     const page  = await browser.newPage();
@@ -32,7 +32,7 @@ export async function ScrapTerabyteProductListFromAPage(queryParam:string):Promi
                 description:String(HToDescription.innerHTML),
                 image:imgToLink.src,
                 Link:aElement.href,
-                Where:window.location.href,
+                Where:window.location.href.replace("https://www.terabyteshop.com.br","").replace("/",""),
                 Price:Number(SpanForprice.innerHTML.replace(",",".").replace(/[^0-9.]/g, '')),
                 Title:String(HToDescription.innerHTML)
             }
@@ -50,6 +50,6 @@ export async function ScrapTerabyteProductListFromAPage(queryParam:string):Promi
     return ps
 }
 
-// (async()=>{
-//     await ScrapTerabyteProductListFromAPage("https://www.terabyteshop.com.br/hardware")
-// })()
+(async()=>{
+    await ScrapTerabyteProductListFromAPage("https://www.terabyteshop.com.br/hardware")
+})()

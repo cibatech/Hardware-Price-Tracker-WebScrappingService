@@ -6,7 +6,7 @@ import { TransferDataObjectFromDOM } from "../../../collections/domRecieverInter
 export async function TerabyteLinkListScrapping():Promise<string[]> {
     
     const browser = await puppeteer.launch({
-        headless:true
+        headless:false
     });
 
     const page = await browser.newPage();

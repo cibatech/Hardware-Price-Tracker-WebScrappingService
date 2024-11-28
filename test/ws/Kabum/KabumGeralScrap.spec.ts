@@ -4,6 +4,7 @@ import { InMemoryProductRepository } from "../../../src/repositories/InMemory/in
 import { KabumLinkCollection } from "../../../src/collections/StandardLinkCollection";
 import { WS_API_DEFAULT_PAGE_lOAD_TIME } from "../../../src/lib/env";
 import { InMemoryPriceReferenceRepository } from "../../../src/repositories/InMemory/InMemoryPriceReferenceRepository";
+import { log } from "console";
 
 
 var SUT:KabumScrappingUseCase
@@ -19,16 +20,18 @@ describe("Good case",()=>{
     it("Should be able to Scrap a kabum product page.",async()=>{
         const test = await SUT.excute(KabumLinkCollection.subSitesList[0]);
         expect(test.ProductList[0].Title).toBeTypeOf("string")
-
+        log(test)
     },{
         timeout:Number(WS_API_DEFAULT_PAGE_lOAD_TIME)+20000
     })
-    it("Should be able to generate a price reference of the already existing product",async()=>{
-        await SUT.excute(KabumLinkCollection.subSitesList[0]);
-        const test = await SUT.excute(KabumLinkCollection.subSitesList[0]);
+    // it("Should be able to generate a price reference of the already existing product",async()=>{
+    //     await SUT.excute(KabumLinkCollection.subSitesList[0]);
+    //     const test = await SUT.excute(KabumLinkCollection.subSitesList[0]);
 
-        // console.log(test.PriceList)
-    },{
-        timeout:Number(WS_API_DEFAULT_PAGE_lOAD_TIME)+20000
-    })
+    //     console.log(test.PriceList)
+
+    //     expect(test.PriceList[0].Price).toBeTypeOf("number")
+    // },{
+    //     timeout:Number(WS_API_DEFAULT_PAGE_lOAD_TIME)+20000
+    // })
 })

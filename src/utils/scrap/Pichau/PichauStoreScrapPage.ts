@@ -5,7 +5,7 @@ import { TransferDataObjectFromDOM } from "../../../collections/domRecieverInter
 import { WS_API_DEFAULT_PAGE_lOAD_TIME } from "../../../lib/env";
 
 export async function PichauScrapStore(CoreUrl:string):Promise<TransferDataObjectFromDOM[]> {
-    const browser = await puppeteer.launch({ headless: true });
+    const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
     await page.setViewport({ width: 1080, height: 1024 });
 
@@ -37,7 +37,7 @@ export async function PichauScrapStore(CoreUrl:string):Promise<TransferDataObjec
                 const hForTitle = aReference.querySelector("h2.MuiTypography-root.MuiTypography-h6") as HTMLHeadingElement
                 const prepCon:TransferDataObjectFromDOM = {
                     Link:aReference.href,
-                    Where:window.location.href,
+                    Where:window.location.href.replace("https://www.pichau.com.br","").replace("/",""),
                     description:h2Reference?h2Reference.innerHTML:null,
                     image:imgReference?imgReference.src:null,
                     Price:SpanForprice?Number(SpanForprice.innerHTML.replace("R$&nbsp;","").replace(/[^0-9]/g, '')):null,
