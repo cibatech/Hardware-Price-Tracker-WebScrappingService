@@ -12,7 +12,9 @@
     "test:kabum": "npx vitest --run test/ws/Kabum",
     "test:pichau": "npx vitest --run test/ws/Pichau",
     "test:terabyte": "npx vitest --run test/ws/Terabyte",
-    "dev": "npx tsx watch src/server.ts"
+    "dev:kabum":"npx tsx src/endPoints/ScrapKabum.ts",
+    "dev:pichau":"npx tsx src/endPoints/ScrapPichau.ts",
+    "dev:terabyte":"npx tsx src/endPoints/ScrapTerabyte.ts"
   },
   "keywords": [],
   "author": "",

@@ -14,7 +14,7 @@ describe("Good Case",()=>{
     })
     it("Should be able to return the linkList of Pichau",async()=>{
         const resp = await SUT.execute();
-        console.log(resp)
+        // console.log(resp)
         expect(resp.StaticLinkList[0].Link).toBeTypeOf("string")
         expect(resp.StaticLinkList[0].Where).toBe("Pichau")
     },{

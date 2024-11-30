@@ -1,6 +1,4 @@
 import { PuppeteerError } from "puppeteer";
-import { StaticLink } from "../../prisma/indev-output";
-import { prisma_dev } from "../lib/prisma";
 import { KabumScrappingUseCase } from "../services/scrap/Kabum/KabumGeneralScrappingService";
 import { PrismaProductRepository } from "../repositories/PrismaDeploy/PrismaProductRepository";
 import { PrismaPriceRepository } from "../repositories/PrismaDeploy/PrismaPriceRepository";
@@ -18,11 +16,10 @@ import { KabumLinkCollection } from "../collections/StandardLinkCollection";
     //             Where:"Kabum"
     //         }
     //     })     
-
+    const LinkList = KabumLinkCollection.subSitesList
     async function RecursiveGenScrapFromLinkList(){
-        indexControl++  
         //Scrap Service
-        const link = KabumLinkCollection.subSitesList[0]
+        const link = LinkList[indexControl]
         var returnp:any[] = []
         try{    
             //chamar o serviço de scrapping e verificar seu resultado
@@ -35,13 +32,15 @@ import { KabumLinkCollection } from "../collections/StandardLinkCollection";
             }
         }
     
-        if(indexControl < 1){
+        if(indexControl < LinkList.length){
             RecursiveGenScrapFromLinkList();
         }else{
             return returnp
         }
+        indexControl++  
     }
 
+    
     var ps = await RecursiveGenScrapFromLinkList()
     console.log(ps)
     //issues list later here

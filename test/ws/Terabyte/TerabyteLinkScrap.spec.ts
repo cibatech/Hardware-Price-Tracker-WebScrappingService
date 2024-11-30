@@ -15,7 +15,7 @@ describe("Good Case",()=>{
     })
     it("Should be able to scrap a terabyte link collection",async()=>{
         const resp = await SUT.execute();
-        console.log(resp);
+        // console.log(resp);
         
         expect(resp.resList[0].Link).toBeTypeOf("string")
         expect(resp.resList[0].Where).toBe("TeraByte")
