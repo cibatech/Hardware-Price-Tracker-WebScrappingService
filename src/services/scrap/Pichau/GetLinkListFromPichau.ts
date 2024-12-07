@@ -1,10 +1,10 @@
 import puppeteer from "puppeteer";
 import { StaticLinkRepository } from "../../../repositories/StaticLink.repository";
 import { PichauLinkCollection } from "../../../collections/StandardLinkCollection";
-import { StaticLink } from "../../../../prisma/indev-output";
 import { WS_API_DEFAULT_PAGE_lOAD_TIME } from "../../../lib/env";
 import { create } from "domain";
 import { PichauScrapCaregoyLinks } from "../../../utils/scrap/Pichau/PichauGetCategoryLinkList";
+import { StaticLink } from "../../../../prisma/deploy-output";
 
 
 interface linkList{

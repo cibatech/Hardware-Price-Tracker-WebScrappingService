@@ -47,7 +47,8 @@ model Product{
   ImageUrl String? 
 
   Slug String //Core key to the product
-
+  
+  onInstallment String? //Preço a prestação
   PriceHistory Price[]
   TrackerList TriggerWarning[]
 

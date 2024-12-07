@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { PuppeteerError } from "puppeteer";
-import { PrismaLinkRepository } from "../../repositories/PrismaDev/PrismaLinkRepository";
+import { PrismaLinkRepository } from "../../repositories/PrismaDeploy/PrismaLinkRepository";
 import { GetPichauLinkListUseCase } from "../../services/scrap/Pichau/GetLinkListFromPichau";
 
 export async function PichauScrapLinkListController(req:FastifyRequest,res:FastifyReply) {

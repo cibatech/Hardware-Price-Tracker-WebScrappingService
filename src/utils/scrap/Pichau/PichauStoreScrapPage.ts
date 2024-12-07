@@ -36,16 +36,25 @@ export async function PichauScrapStore(CoreUrl:string):Promise<TransferDataObjec
                 const SpanForprice = element.querySelector("span") as HTMLSpanElement;
                 const hForTitle = aReference.querySelector("h2.MuiTypography-root.MuiTypography-h6") as HTMLHeadingElement
                 var getPromoPriceDiv = element.querySelector("div.jss300")
-
                 let value = getPromoPriceDiv?parseFloat(getPromoPriceDiv.innerHTML.replace(/[^0-9,]/g, '').replace(',', '.')):SpanForprice?parseFloat(SpanForprice.innerHTML.replace(/[^0-9,]/g, '').replace(',', '.')):0
 
+                const spans = document.querySelectorAll("span") as NodeListOf<HTMLSpanElement>;
+                var torent:string | null = null
+                spans.forEach((span) => {
+                    if(span.textContent){
+                        if (span.textContent.includes("em até")) {
+                            torent = span.textContent
+                        }
+                    }
+                });
                 const prepCon:TransferDataObjectFromDOM = {
                     Link:aReference.href,
                     Where:window.location.href.replace("https://www.pichau.com.br","").replace("/",""),
                     description:h2Reference?h2Reference.innerHTML:null,
                     image:imgReference?imgReference.src:null,
                     Price:value,
-                    Title:hForTitle.innerHTML
+                    Title:hForTitle.innerHTML,
+                    AtRent:torent?torent:null
                 }
                 prepList.push(prepCon)
             }

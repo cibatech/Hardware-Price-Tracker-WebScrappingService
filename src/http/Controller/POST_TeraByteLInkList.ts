@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { PuppeteerError } from "puppeteer";
 import { TeraByteLinkScrapUseCase } from "../../services/scrap/Terabyte/TeraByteLinkCollectionScrappings";
-import { PrismaLinkRepository } from "../../repositories/PrismaDev/PrismaLinkRepository";
+import { PrismaLinkRepository } from "../../repositories/PrismaDeploy/PrismaLinkRepository";
 
 export async function TeraByteGetStaticLinkController(req:FastifyRequest, res:FastifyReply) {
     

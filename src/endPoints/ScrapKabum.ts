@@ -3,13 +3,16 @@ import { KabumScrappingUseCase } from "../services/scrap/Kabum/KabumGeneralScrap
 import { PrismaProductRepository } from "../repositories/PrismaDeploy/PrismaProductRepository";
 import { PrismaPriceRepository } from "../repositories/PrismaDeploy/PrismaPriceRepository";
 import { KabumLinkCollection } from "../collections/StandardLinkCollection";
+import { InMemoryIssuesRepository } from "../repositories/InMemory/InMemoryIssueRepository";
+import { PrismaIssuesRepository } from "../repositories/PrismaDeploy/PrismaIssueRepository";
+import { CreateIssueUseCase } from "../services/Issues/CreateissueService";
 
 (async()=>{
     
     const ErrorList:Error[] = [];
 
     const publicService = new KabumScrappingUseCase(new PrismaProductRepository,new PrismaPriceRepository)
-
+    const ErrorService = new CreateIssueUseCase(new PrismaIssuesRepository)
     var indexControl = 0
     //     const LinkList:StaticLink[] = await prisma_dev.staticLink.findMany({
     //         where:{
@@ -27,8 +30,13 @@ import { KabumLinkCollection } from "../collections/StandardLinkCollection";
             console.log(resp)
             returnp = [resp]
         }catch(err){
+            //toda vez que cometer um erro registrará um issue no banco de dados
             if(err instanceof PuppeteerError){
-                ErrorList.push(err)
+                const error = await ErrorService.execute({
+                    At:"Deploy:Kabum",
+                    Reason:"Internal Puppeteer Error"
+                })
+                console.log(error)
             }
         }
     

@@ -2,8 +2,8 @@ import puppeteer from "puppeteer";
 import { StaticLinkRepository } from "../../../repositories/StaticLink.repository";
 import { TeraByteLinkCollection } from "../../../collections/StandardLinkCollection";
 import { WS_API_DEFAULT_PAGE_lOAD_TIME } from "../../../lib/env";
-import { StaticLink } from "../../../../prisma/indev-output";
 import { TerabyteLinkListScrapping } from "../../../utils/scrap/TeraByte/TeraByteLinkListScrapping";
+import { StaticLink } from "../../../../prisma/deploy-output";
 
 export class TeraByteLinkScrapUseCase{
         constructor(private LinkRepository:StaticLinkRepository){}

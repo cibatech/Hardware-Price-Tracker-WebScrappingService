@@ -18,7 +18,7 @@ export async function KabumGeneralScrapping(queryParam:string) {
     //garante que o seletor principal vai ser retornado
     await page.waitForSelector("main.sc-1be01e1c-9.bpRSSD")
     //função executada no DOM da pagina
-    const ps = await page.evaluate(()=>{
+    const ps:TransferDataObjectFromDOM[] = await page.evaluate(()=>{
         const DOM = document.querySelector("main.sc-1be01e1c-9.bpRSSD");
         const ContainerList = DOM?.querySelectorAll("a") as NodeListOf<HTMLAnchorElement>;
         const returnList:TransferDataObjectFromDOM[] = []
@@ -28,7 +28,8 @@ export async function KabumGeneralScrapping(queryParam:string) {
             const GetSpanElementFromH3 = element.querySelector("span.sc-d79c9c3f-0.nlmfp.sc-27518a44-9.iJKRqI.nameCard") as HTMLSpanElement
             const GetImageElementForLink = element.querySelector("img") as HTMLImageElement
             const GetPriceFromElement = element.querySelector("span.priceCard.sc-57f0fd6e-2 ") as HTMLSpanElement
-            
+            const GetAtRent = element.querySelector("b") as HTMLBRElement
+
             const price = GetPriceFromElement.innerHTML.replace("R$&nbsp;","")
 
             // alert(price)
@@ -39,7 +40,8 @@ export async function KabumGeneralScrapping(queryParam:string) {
                     image:GetImageElementForLink.src,
                     Link:element.href,
                     Price:parseFloat(price),
-                    Title:GetSpanElementFromH3.innerHTML
+                    Title:GetSpanElementFromH3.innerHTML,
+                    AtRent:GetAtRent?GetAtRent.innerHTML:null
                 }
                 returnList.push(prop)
             }
