@@ -65,7 +65,7 @@ export async function CompareProductsToReturnPrices({Kind,priceRepo,productRepo,
         const theresAlreadyAnyProductWithThisLink = await productRepo.findByLink(Element.Link);
 
         if(theresAlreadyAnyProductWithThisLink){
-            console.log(true)
+            console.log(Element.Link,"Should it get a priceReference",true)
             //add the price reference to the product and updates the product with the newest price.
 
             //updates the product with the new price
@@ -81,7 +81,7 @@ export async function CompareProductsToReturnPrices({Kind,priceRepo,productRepo,
                 })
             )
         }else{
-            console.log(false)
+            console.log(Element.Link,"Should it get a priceReference",false)
             //Add the new product to the reslist
             resList.push(
                 await productRepo.create({

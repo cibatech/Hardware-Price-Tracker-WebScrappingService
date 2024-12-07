@@ -1,4 +1,4 @@
-import { Prisma, StaticLink } from "../../prisma/indev-output";
+import { Prisma, StaticLink } from "../../prisma/deploy-output"
 
 export interface StaticLinkRepository {
     create(data:Prisma.StaticLinkCreateInput):Promise<StaticLink>

@@ -122,6 +122,19 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.TriggerWarningScalarFieldEnum = {
+  Id: 'Id',
+  TargetPrice: 'TargetPrice',
+  UserId: 'UserId',
+  ProdId: 'ProdId'
+};
+
+exports.Prisma.UserScalarFieldEnum = {
+  Id: 'Id',
+  Email: 'Email',
+  Password: 'Password'
+};
+
 exports.Prisma.ProductScalarFieldEnum = {
   Id: 'Id',
   Title: 'Title',
@@ -139,6 +152,20 @@ exports.Prisma.PriceScalarFieldEnum = {
   AtDate: 'AtDate',
   Price: 'Price',
   ProdId: 'ProdId'
+};
+
+exports.Prisma.StaticLinkScalarFieldEnum = {
+  Id: 'Id',
+  Link: 'Link',
+  GeneratedAt: 'GeneratedAt',
+  Where: 'Where'
+};
+
+exports.Prisma.IssueScalarFieldEnum = {
+  Id: 'Id',
+  When: 'When',
+  Reason: 'Reason',
+  At: 'At'
 };
 
 exports.Prisma.SortOrder = {
@@ -162,8 +189,12 @@ exports.kind = exports.$Enums.kind = {
 };
 
 exports.Prisma.ModelName = {
+  TriggerWarning: 'TriggerWarning',
+  User: 'User',
   Product: 'Product',
-  Price: 'Price'
+  Price: 'Price',
+  StaticLink: 'StaticLink',
+  Issue: 'Issue'
 };
 
 /**

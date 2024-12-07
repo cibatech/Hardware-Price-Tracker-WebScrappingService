@@ -30,6 +30,7 @@ export async function KabumGeneralScrapping(queryParam:string) {
             const GetPriceFromElement = element.querySelector("span.priceCard.sc-57f0fd6e-2 ") as HTMLSpanElement
             
             const price = GetPriceFromElement.innerHTML.replace("R$&nbsp;","")
+
             // alert(price)
             if(GetPriceFromElement.textContent){
                 let prop:TransferDataObjectFromDOM = {
@@ -37,7 +38,7 @@ export async function KabumGeneralScrapping(queryParam:string) {
                     Where:window.location.href.replace("https://www.kabum.com.br","").replace("/",""), // remove o url deixando apenas a categoria 
                     image:GetImageElementForLink.src,
                     Link:element.href,
-                    Price:Number(price),
+                    Price:parseFloat(price),
                     Title:GetSpanElementFromH3.innerHTML
                 }
                 returnList.push(prop)
