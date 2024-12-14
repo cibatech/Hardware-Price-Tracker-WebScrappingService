@@ -6,6 +6,7 @@ import { KabumLinkCollection } from "../collections/StandardLinkCollection";
 import { InMemoryIssuesRepository } from "../repositories/InMemory/InMemoryIssueRepository";
 import { PrismaIssuesRepository } from "../repositories/PrismaDeploy/PrismaIssueRepository";
 import { CreateIssueUseCase } from "../services/Issues/CreateissueService";
+import { prisma_deploy } from "../lib/prisma";
 
 (async()=>{
     
@@ -24,11 +25,44 @@ import { CreateIssueUseCase } from "../services/Issues/CreateissueService";
         //Scrap Service
         const link = LinkList[indexControl]
         var returnp:any[] = []
+        console.warn("Scrapp service loading:"+link)
         try{    
             //chamar o serviço de scrapping e verificar seu resultado
             const resp = await publicService.excute(link)
             console.log(resp)
             returnp = [resp]
+            resp.ProductList.forEach(async element => {
+                if(!element){
+                    const error = await ErrorService.execute({
+                        At:"Deploy:Kabum",
+                        Reason:"Cant create object"
+                    })
+                    console.log(error)
+                }
+                if(!element.Value || element.Value==0){
+                    const error = await ErrorService.execute({
+                        At:"Deploy:Kabum",
+                        Reason:"Created empty or zero value"
+                    })
+                    console.log(error)
+                }
+            });
+            resp.PriceList.forEach(async element => {
+                if(!element){
+                    const error = await ErrorService.execute({
+                        At:"Deploy:Terabyte",
+                        Reason:"Cant create object"
+                    })
+                    console.log(error)
+                }
+                if(!element.Price || element.Price==0){
+                    const error = await ErrorService.execute({
+                        At:"Deploy:Terabyte",
+                        Reason:"Created empty or zero value"
+                    })
+                    console.log(error)
+                }
+            });
         }catch(err){
             //toda vez que cometer um erro registrará um issue no banco de dados
             if(err instanceof PuppeteerError){
@@ -52,8 +86,11 @@ import { CreateIssueUseCase } from "../services/Issues/CreateissueService";
     var ps = await RecursiveGenScrapFromLinkList()
     console.log(ps)
     //issues list later here
-
-
+    await prisma_deploy.scrap.create({
+        data:{
+            Scraped:"Kabum"
+        }
+    })
 })()
 
 

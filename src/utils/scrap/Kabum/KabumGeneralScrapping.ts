@@ -55,6 +55,6 @@ export async function KabumGeneralScrapping(queryParam:string) {
 
     return ps
 }
-(async()=>{
-    await KabumGeneralScrapping("https://www.kabum.com.br/hardware")
-})()
+// (async()=>{
+//     await KabumGeneralScrapping("https://www.kabum.com.br/hardware")
+// })()

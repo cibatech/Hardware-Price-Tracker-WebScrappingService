@@ -60,19 +60,22 @@ interface CompareProductsParams{
 export async function CompareProductsToReturnPrices({Kind,priceRepo,productRepo,ps}:CompareProductsParams) {
     const resList:Product[] = []
     const priceList:Price[] = []
+    const upList:Product[] = []
     for(let i=0;i<ps.length;i++){
         const Element = ps[i];
         const theresAlreadyAnyProductWithThisLink = await productRepo.findByLink(Element.Link);
 
         if(theresAlreadyAnyProductWithThisLink){
-            console.log(Element.Link,"Should it get a priceReference",true)
+            console.log(Element.Link,"- PriceReference:",true," at value:"+Element.Price)
             //add the price reference to the product and updates the product with the newest price.
 
+            
             //updates the product with the new price
-            productRepo.update(theresAlreadyAnyProductWithThisLink.Id,{
-                Value:Number(Element.Price)
-            })
-
+            upList.push(await productRepo.update(theresAlreadyAnyProductWithThisLink.Id,{
+                Value:Element.Price?Element.Price:theresAlreadyAnyProductWithThisLink.Value,
+                ImageUrl:Element.image?Element.image:theresAlreadyAnyProductWithThisLink.ImageUrl,
+                onInstallment:Element.AtRent?Element.AtRent:theresAlreadyAnyProductWithThisLink.onInstallment
+            }))
             priceList.push(
                 await priceRepo.create({
                     AtDate:new Date(),
@@ -81,7 +84,7 @@ export async function CompareProductsToReturnPrices({Kind,priceRepo,productRepo,
                 })
             )
         }else{
-            console.log(Element.Link,"Should it get a priceReference",false)
+            console.log(Element.Link,"- PriceReference:",false," at value:"+Element.Price)
             //Add the new product to the reslist
             resList.push(
                 await productRepo.create({
@@ -92,13 +95,15 @@ export async function CompareProductsToReturnPrices({Kind,priceRepo,productRepo,
                     Where:Element.Where,
                     Description:Element.description,
                     ImageUrl:Element.image,
-                    Title:Element.Title
+                    Title:Element.Title,
+                    onInstallment:Element.AtRent
                 })
             )
         }
     }
     return{
         resList,
-        priceList
+        priceList,
+        upList
     }
 }
