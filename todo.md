@@ -1,2 +1,2 @@
-- Sqlite database should register a history of aplication mistakes and everything that happens there
-- Fix Kabum price return issue
+- Fix Scrap Terabyte out of loop error
+- Fix Scrap Kabum Error (requires update to follow site update)

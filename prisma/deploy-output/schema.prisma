@@ -1,11 +1,13 @@
 generator client {
-  provider = "prisma-client-js"
-  output   = "deploy-output"
+  provider      = "prisma-client-js"
+  output        = "deploy-output"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
 }
 
 datasource db {
-  provider = "postgres"
-  url      = env("DATABASE_URL_PRIMARY")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL_PRIMARY")
+  directUrl = env("DIRECT_URL")
 }
 
 enum kind {
@@ -14,27 +16,68 @@ enum kind {
   Kabum
 }
 
+model TriggerWarning {
+  Id          String @id @default(uuid())
+  TargetPrice Int
+
+  uRef   User   @relation(fields: [UserId], references: [Id])
+  UserId String
+
+  pRef   Product @relation(fields: [ProdId], references: [Id])
+  ProdId String
+}
+
+model User {
+  Id       String @id @default(uuid())
+  Email    String
+  Password String
+
+  Triggers TriggerWarning[]
+}
+
+model Scrap {
+  Id        Int      @id @default(autoincrement())
+  CreatedAt DateTime @default(now())
+  Scraped   String
+}
+
 model Product {
   Id          String  @id @default(uuid())
   Title       String?
   Description String?
   Value       Float
-  Link        String
+  Link        String  @unique
   Where       String
   Kind        kind
   ImageUrl    String?
 
   Slug String //Core key to the product
 
-  PriceHistory Price[]
+  onInstallment String? //Preço a prestação
+  PriceHistory  Price[]
+  TrackerList   TriggerWarning[]
 }
 
 model Price {
   Id String @id @default(uuid())
 
-  AtDate DateTime
+  AtDate DateTime @default(now())
   Price  Float
 
   prodRef Product @relation(fields: [ProdId], references: [Id])
   ProdId  String
+}
+
+model StaticLink {
+  Id          Int      @id @default(autoincrement())
+  Link        String
+  GeneratedAt DateTime @default(now())
+  Where       String
+}
+
+model Issue {
+  Id     String   @id @default(uuid())
+  When   DateTime @default(now())
+  Reason String?
+  At     String?
 }

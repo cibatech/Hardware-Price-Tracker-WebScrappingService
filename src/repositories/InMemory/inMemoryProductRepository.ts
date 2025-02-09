@@ -15,7 +15,8 @@ export class InMemoryProductRepository implements ProductRepository{
             Slug:String(data.Title+"-"+data.Description+"-"+data.Kind),
             Title:String(data.Title),
             Value:Number(data.Value),
-            Where:String(data.Where)
+            Where:String(data.Where),
+            onInstallment:String(data.onInstallment)
         }
 
         this.list.push(product)
@@ -33,7 +34,8 @@ export class InMemoryProductRepository implements ProductRepository{
             Slug:data.Slug?String(data.Slug):prod.Link,
             Title:data.Title?String(data.Title):prod.Title,
             Value:data.Value?Number(data.Value):prod.Value,
-            Where:data.Where?String(data.Where):prod.Where
+            Where:data.Where?String(data.Where):prod.Where,
+            onInstallment:data.onInstallment?String(data.onInstallment):prod.Where
         }
         this.list[Pid] = newProd
         return newProd
@@ -57,6 +59,4 @@ export class InMemoryProductRepository implements ProductRepository{
         const product = this.list.find(item=>item.Id == slug);
         return product?product:null
     }
-    
-
 }
