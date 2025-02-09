@@ -122,7 +122,15 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 exports.Prisma.StaticLinkScalarFieldEnum = {
   Id: 'Id',
   Link: 'Link',
-  GeneratedAt: 'GeneratedAt'
+  GeneratedAt: 'GeneratedAt',
+  Where: 'Where'
+};
+
+exports.Prisma.IssueScalarFieldEnum = {
+  Id: 'Id',
+  When: 'When',
+  Reason: 'Reason',
+  At: 'At'
 };
 
 exports.Prisma.SortOrder = {
@@ -130,9 +138,15 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+
 
 exports.Prisma.ModelName = {
-  StaticLink: 'StaticLink'
+  StaticLink: 'StaticLink',
+  Issue: 'Issue'
 };
 
 /**
