@@ -1,0 +1,12 @@
+
+
+services:
+  db:
+    image: bitnami/postgresql:latest
+    environment:
+      POSTGRES_USER: HPT-User
+      POSTGRES_PASSWORD: HTP_Pass
+      POSTGRES_DB: HTP_Postgresql_DB
+    
+    ports:
+      - 4455:5432

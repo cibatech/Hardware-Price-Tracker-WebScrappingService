@@ -3,5 +3,7 @@ export interface TransferDataObjectFromDOM{
     Where:string,
     image:string | null,
     description:string | null,
-    Price:string | null
+    Price:number | null,
+    Title:string,
+    AtRent:string | null
 }

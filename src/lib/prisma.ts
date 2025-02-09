@@ -1,4 +1,4 @@
-import { PrismaClient } from "../../prisma/indev-output";
+import { PrismaClient as Prisma_deploy } from "../../prisma/deploy-output";
 
-//database during development
-export const prisma_dev = new PrismaClient()
+//database to deploy 
+export const prisma_deploy = new Prisma_deploy()
