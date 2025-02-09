@@ -6,7 +6,7 @@ import { WS_API_DEFAULT_PAGE_lOAD_TIME } from "../../../lib/env";
 export async function ScrapTerabyteProductListFromAPage(queryParam:string):Promise<TransferDataObjectFromDOM[]>{
      //cria uma instancia de um browser
      const browser = await puppeteer.launch({
-        headless:true
+        headless:false
     })
     //Abre uma nova pagina
     const page  = await browser.newPage();
@@ -28,13 +28,25 @@ export async function ScrapTerabyteProductListFromAPage(queryParam:string):Promi
             const HToDescription = Element.querySelector("h2") as HTMLHeadingElement
             const imgToLink = Element.querySelector("img.image-thumbnail") as HTMLImageElement
             const SpanForprice = Element.querySelector("div.product-item__new-price > span") as HTMLSpanElement
+            const container = document.querySelector('.product-item__juros');
+            var getRent:string | null = null;
+            if(container){
+                const elements = container.querySelectorAll('span, small');
+                const result = Array.from(elements)
+                .map(element => element.textContent?.trim()) // Remove espaços extras
+                .join(' '); // Junta os textos com espaço
+                getRent = result
+            }
+
             const t:TransferDataObjectFromDOM = {
                 description:String(HToDescription.innerHTML),
                 image:imgToLink.src,
                 Link:aElement.href,
-                Where:window.location.href,
+                Where:window.location.href.replace("https://www.terabyteshop.com.br","").replace("/",""),
                 Price:Number(SpanForprice.innerHTML.replace(",",".").replace(/[^0-9.]/g, '')),
-                Title:String(HToDescription.innerHTML)
+                Title:String(HToDescription.innerHTML),
+                AtRent:getRent
+                
             }
             resList.push(t)
         })
@@ -50,6 +62,6 @@ export async function ScrapTerabyteProductListFromAPage(queryParam:string):Promi
     return ps
 }
 
-// (async()=>{
-//     await ScrapTerabyteProductListFromAPage("https://www.terabyteshop.com.br/hardware")
-// })()
+(async()=>{
+    await ScrapTerabyteProductListFromAPage("https://www.terabyteshop.com.br/hardware")
+})()

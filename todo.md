@@ -1,5 +1,2 @@
-- FIx Terabyte link list return
-- Change price to "current price" and update this price with the current one
-
-- Write Kabum Scrap return
-- rewrites pichau double index test
+- Fix Scrap Terabyte out of loop error
+- Fix Scrap Kabum Error (requires update to follow site update)

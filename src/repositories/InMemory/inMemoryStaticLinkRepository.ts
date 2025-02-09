@@ -1,5 +1,5 @@
-import { randomUUID } from "crypto";
-import { Prisma, StaticLink } from "../../../prisma/indev-output";
+
+import { Prisma, StaticLink } from "../../../prisma/deploy-output";
 import { StaticLinkRepository } from "../StaticLink.repository";
 
 

@@ -6,6 +6,7 @@ import { PriceReferenceRepository } from "../../../repositories/PriceReference.r
 import { sluggen } from "../../../utils/sluggen";
 import { Price, Product } from "../../../../prisma/deploy-output";
 import { PichauScrapStore } from "../../../utils/scrap/Pichau/PichauStoreScrapPage";
+import { CompareProductsToReturnPrices } from "../../../utils/CompareProductsToReturnPrices";
 
 /**
  * Class responsible for general scraping operations on Pichau's website, extracting product information
@@ -29,46 +30,13 @@ export class PichauGeneralScrappingUseCase {
     async execute(CoreUrl:string){
         const ps = await PichauScrapStore(CoreUrl)
  
-         // uses to check if there's already any link reference in the products list. if the answear is false so it will create a new product. if it is true it will update the products price and create a price reference of the new value.
-        
-         const resList:Product[] = []
-         const priceList:Price[] = [];
-         
-         for(let i=0;i<ps.length;i++){
-             const Element = ps[i];
-             const theresAlreadyAnyProductWithThisLink = await this.ProductRepository.findByLink(Element.Link);
-             if(theresAlreadyAnyProductWithThisLink){
-                 //add the price reference to the product and updates the product with the newest price.
- 
-                 //updates the product with the new price
-                 this.ProductRepository.update(theresAlreadyAnyProductWithThisLink.Id,{
-                     Value:Number(Element.Price)
-                 })
- 
-                 priceList.push(
-                     await this.PriceReferenceRepository.create({
-                         AtDate:new Date(),
-                         Price:Number(Element.Price),
-                         ProdId:theresAlreadyAnyProductWithThisLink.Id,
- 
-                     })
-                 )
-             }else{
-                 //Add the new product to the reslist
-                 resList.push(
-                     await this.ProductRepository.create({
-                         Kind:"TeraByte",
-                         Link:Element.Link,
-                         Slug:sluggen(String(Element.description)),
-                         Value:Number(Element.Price),
-                         Where:Element.Where,
-                         Description:Element.description,
-                         ImageUrl:Element.image,
-                         Title:Element.Title
-                     })
-                 )
-             }
-         } 
+         // uses to check if there's already any link reference in the products list. if the answear is false so it will create a new product. if it is true it will update the products price and create a price reference of the new value
+        const {priceList,resList} = await CompareProductsToReturnPrices({
+            Kind:"Pichau",
+            priceRepo:this.PriceReferenceRepository,
+            productRepo:this.ProductRepository,
+            ps
+        })
         return {
             resList,
             priceList

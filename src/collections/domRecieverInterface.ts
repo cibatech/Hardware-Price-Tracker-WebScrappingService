@@ -4,5 +4,6 @@ export interface TransferDataObjectFromDOM{
     image:string | null,
     description:string | null,
     Price:number | null,
-    Title:string
+    Title:string,
+    AtRent:string | null
 }

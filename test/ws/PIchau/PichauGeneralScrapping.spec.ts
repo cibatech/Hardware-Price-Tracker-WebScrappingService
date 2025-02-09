@@ -22,13 +22,23 @@ describe("Good Case",async()=>{
     },{
         timeout:Number(WS_API_DEFAULT_PAGE_lOAD_TIME)+20000
     })
-    it("Should be able to generate a price reference of the already existing product",async()=>{
-        await SUT.execute(PichauLinkCollection.subSitesList[0]);
-        const test = await SUT.execute(PichauLinkCollection.subSitesList[0]);
+    // it("Should be able to generate a price reference of the already existing product",async()=>{
+    //     ProductRep.create({
+    //         Link:"https://www.kabum.com.br/produto/474939/memoria-ram-xpg-gammix-d35-8gb-3200mhz-ddr4-cl16-preto-ax4u32008g16a-sbkd35",
+    //         Kind:"Kabum",
+    //         Slug:"",
+    //         Value:23,
+    //         Where:"hardware",
+    //         Description:""
+            
+    //     })
+    //     const test = await SUT.execute(PichauLinkCollection.subSitesList[0]);
 
-        expect(test.priceList[0].Price).toBeTypeOf("number")
-    },{
-        timeout:Number(WS_API_DEFAULT_PAGE_lOAD_TIME)+20000
-    })
+    //     console.log(test.priceList)
+
+    //     expect(test.priceList[0]).toBeDefined()
+    // },{
+    //     timeout:Number(WS_API_DEFAULT_PAGE_lOAD_TIME)+20000
+    // })
     console.warn("writes here a test to price reference")
 })

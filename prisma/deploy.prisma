@@ -1,17 +1,45 @@
 generator client {
   provider = "prisma-client-js"
   output = "deploy-output"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
 }
 
 datasource db {
-  provider = "postgres"
-  url      = env("DATABASE_URL_PRIMARY")
+  provider = "postgresql"
+  url       = env("DATABASE_URL_PRIMARY")
+  directUrl = env("DIRECT_URL")
 }
 
 enum kind {
   TeraByte
   Pichau
   Kabum
+}
+
+model TriggerWarning{
+  Id String @id @default(uuid())
+  TargetPrice Int 
+
+  uRef User @relation(fields: [UserId],references: [Id])
+  UserId String 
+
+  pRef Product @relation(fields: [ProdId],references: [Id])
+  ProdId String
+}
+
+model User{
+  Id String @id @default(uuid())
+  Email String 
+  Password String
+
+
+  Triggers TriggerWarning[]
+}
+
+model Scrap{
+  Id Int @id @default(autoincrement())
+  CreatedAt DateTime @default(now())
+  Scraped String
 }
 
 model Product{
@@ -25,8 +53,10 @@ model Product{
   ImageUrl String? 
 
   Slug String //Core key to the product
-
+  
+  onInstallment String? //Preço a prestação
   PriceHistory Price[]
+  TrackerList TriggerWarning[]
 
 }
 
@@ -38,4 +68,18 @@ model Price{
 
   prodRef Product @relation(fields: [ProdId],references: [Id])
   ProdId String
+}
+
+model StaticLink{
+  Id Int @id @default(autoincrement())
+  Link String
+  GeneratedAt DateTime @default(now())
+  Where String
+}
+
+model Issue{
+  Id String @id @default(uuid())
+  When DateTime @default(now())
+  Reason String? 
+  At String?
 }
