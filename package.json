@@ -4,8 +4,14 @@
   "main": "index.js",
   "scripts": {
     "db:indev": "npx prisma migrate dev --schema=prisma/indev.prisma",
+    "db:ui-indev":"npx prisma studio --schema=prisma/indev.prisma",
     "db:deploy": "npx prisma generate --schema=prisma/deploy.prisma",
+    "db:ui-deploy":"npx prisma studio --schema=prisma/deploy.prisma",
     "test": "npx vitest --run",
+    "test:ws": "npx vitest --run test/ws",
+    "test:kabum": "npx vitest --run test/ws/Kabum",
+    "test:pichau": "npx vitest --run test/ws/Pichau",
+    "test:terabyte": "npx vitest --run test/ws/Terabyte",
     "dev": "npx tsx watch src/server.ts"
   },
   "keywords": [],
@@ -13,6 +19,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@prisma/client": "^5.22.0",
     "@types/node": "^22.9.0",
     "dotenv": "^16.4.5",
     "fastify": "^5.1.0",

@@ -57,6 +57,4 @@ export class InMemoryProductRepository implements ProductRepository{
         const product = this.list.find(item=>item.Id == slug);
         return product?product:null
     }
-    
-
 }

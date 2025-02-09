@@ -1,0 +1,5 @@
+### POST link list from Pichau
+POST http://127.0.0.1:2467/scrap/pichau/links
+
+### POST link list from Terabyte
+POST http://127.0.0.1:2467/scrap/terabyte/links
